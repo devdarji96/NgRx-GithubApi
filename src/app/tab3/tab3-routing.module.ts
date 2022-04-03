@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Tab3Page } from './tab3.page';
+import { HighLightDirective } from '../directives/highlight.directive';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  declarations: [HighLightDirective],
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule, HighLightDirective]
 })
-export class Tab3PageRoutingModule {}
+export class Tab3PageRoutingModule { }

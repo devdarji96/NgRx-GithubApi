@@ -1,17 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      User
     </ion-title>
   </ion-toolbar>
+
+
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ngModelChange)="findUser()"></ion-searchbar>
+  </ion-toolbar>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">User</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-card *ngIf="userDetail$ | async as user">
+    <ng-container *ngIf="user?.name || user?.bio">
+
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img [src]="user?.avatar_url || defaultImage">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 appHighLight>{{user?.name}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <p [innerText]="user?.bio" appHighLight></p>
+        <p appHighLight>
+          {{user?.company}}
+        </p>
+        <p appHighLight>
+          {{user?.location}}
+        </p>
+        <ion-button fill="outline" slot="end" *ngIf="user?.url" (click)="openWebsite(user?.url)">View Website
+        </ion-button>
+        <ion-button fill="outline" slot="end" *ngIf="user?.blog" (click)="openWebsite(user?.blog)">View blog
+        </ion-button>
+
+      </ion-card-content>
+
+    </ng-container>
+
+  </ion-card>
+
 </ion-content>
